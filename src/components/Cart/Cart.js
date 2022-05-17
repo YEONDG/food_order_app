@@ -10,10 +10,12 @@ const Cart = (props) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
 
-  const cartItemRemoveHandler = (id) => {};
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
 
   const cartItemAddHandler = (item) => {
-    cartCtx.addItem({...item, amount: 1});
+    cartCtx.addItem({ ...item, amount: 1 });
   };
 
   const cartItems = (
@@ -26,12 +28,10 @@ const Cart = (props) => {
           price={item.price}
           onRemove={cartItemRemoveHandler.bind(null, item.id)}
           onAdd={cartItemAddHandler.bind(null, item)}
-          //bind는 함수를 사전에 구성한다. 향후 실행을 위해
         />
       ))}
     </ul>
   );
-
   return (
     <Modal onClose={props.onClose}>
       {cartItems}
